@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Then
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
@@ -15,7 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       return
     }
     let newWindow = UIWindow(windowScene: windowScene)
-    newWindow.rootViewController = NavigationController(rootViewController: HomeViewController())
+    newWindow.rootViewController = UITabBarController().then {
+      $0.viewControllers = [
+        NavigationController(rootViewController: HomeViewController()).then {
+          $0.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "photo.stack"), tag: 0)
+        },
+        NavigationController(rootViewController: FavoriteItemViewController()).then {
+          $0.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "bookmark"), tag: 0)
+        }
+      ]
+    }
     newWindow.makeKeyAndVisible()
     window = newWindow
   }

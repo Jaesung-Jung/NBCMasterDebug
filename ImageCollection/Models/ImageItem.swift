@@ -8,7 +8,7 @@
 import Foundation
 import Then
 
-struct ImageItem: Decodable {
+struct ImageItem: Codable, Identifiable {
   let id: String
   let width: Int
   let height: Int
@@ -34,7 +34,7 @@ struct ImageItem: Decodable {
 // MARK: - ImageItem.Images
 
 extension ImageItem {
-  struct Images: Decodable, Equatable {
+  struct Images: Codable, Equatable {
     let raw: URL
     let full: URL
     let regular: URL

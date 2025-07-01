@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4B69899B2DEBEC0200FF3CF0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B69899A2DEBEC0200FF3CF0 /* SnapKit */; };
 		4B6989B42DEC023100FF3CF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4B6989B32DEC023100FF3CF0 /* Then */; };
+		4BC6E4462E13F210003B82DF /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC6E4452E13F210003B82DF /* IdentifiedCollections */; };
+		4BC6E4492E13F7FF003B82DF /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC6E4482E13F7FF003B82DF /* Defaults */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC6E4492E13F7FF003B82DF /* Defaults in Frameworks */,
+				4BC6E4462E13F210003B82DF /* IdentifiedCollections in Frameworks */,
 				4B69899B2DEBEC0200FF3CF0 /* SnapKit in Frameworks */,
 				4B6989B42DEC023100FF3CF0 /* Then in Frameworks */,
 			);
@@ -87,6 +91,8 @@
 			packageProductDependencies = (
 				4B69899A2DEBEC0200FF3CF0 /* SnapKit */,
 				4B6989B32DEC023100FF3CF0 /* Then */,
+				4BC6E4452E13F210003B82DF /* IdentifiedCollections */,
+				4BC6E4482E13F7FF003B82DF /* Defaults */,
 			);
 			productName = ImageCollection;
 			productReference = 4B69897D2DEBEB7A00FF3CF0 /* ImageCollection.app */;
@@ -119,6 +125,8 @@
 			packageReferences = (
 				4B6989992DEBEC0200FF3CF0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4B6989B22DEC023100FF3CF0 /* XCRemoteSwiftPackageReference "Then" */,
+				4BC6E4442E13F210003B82DF /* XCRemoteSwiftPackageReference "swift-identified-collections" */,
+				4BC6E4472E13F7FF003B82DF /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4B69897E2DEBEB7A00FF3CF0 /* Products */;
@@ -366,6 +374,22 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		4BC6E4442E13F210003B82DF /* XCRemoteSwiftPackageReference "swift-identified-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-identified-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		4BC6E4472E13F7FF003B82DF /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -378,6 +402,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B6989B22DEC023100FF3CF0 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		4BC6E4452E13F210003B82DF /* IdentifiedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BC6E4442E13F210003B82DF /* XCRemoteSwiftPackageReference "swift-identified-collections" */;
+			productName = IdentifiedCollections;
+		};
+		4BC6E4482E13F7FF003B82DF /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BC6E4472E13F7FF003B82DF /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

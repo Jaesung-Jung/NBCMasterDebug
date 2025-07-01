@@ -1,6 +1,15 @@
 {
-  "originHash" : "2ad69c0deaec8838f2417eb6e8d288b30a36442bc22243bc0f5ee813f88e20a7",
+  "originHash" : "d1510a284ba3e9cf9f67d81f0c59330cec7e724d5633cb9b424811a532b8d818",
   "pins" : [
+    {
+      "identity" : "defaults",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/Defaults.git",
+      "state" : {
+        "revision" : "00c82eff4550c87cf9c547d7e5493a6a97837061",
+        "version" : "9.0.3"
+      }
+    },
     {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,33 @@
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-identified-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-identified-collections.git",
+      "state" : {
+        "revision" : "322d9ffeeba85c9f7c4984b39422ec7cc3c56597",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax",
+      "state" : {
+        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
+        "version" : "601.0.1"
       }
     },
     {

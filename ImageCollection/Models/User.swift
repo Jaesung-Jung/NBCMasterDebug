@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Decodable {
+struct User: Codable {
   let id: String
   let name: String
   let bio: String?
@@ -42,7 +42,7 @@ struct User: Decodable {
 // MARK: - User.Social
 
 extension User {
-  struct Social: Decodable, Equatable {
+  struct Social: Codable, Equatable {
     let instagram: String?
     let twitter: String?
     let portfolio: URL?

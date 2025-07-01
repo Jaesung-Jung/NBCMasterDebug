@@ -12,6 +12,7 @@ import Then
 final class ImageDetailViewController: UIViewController {
   private let imageDownloader = ImageDownloader()
   private let imageWriter = ImageWriter()
+  private let favoriteItemRepository = FavoriteItemRepository.shared
   private let imageItem: ImageItem
 
   private let profileImageView = UIImageView().then {
@@ -75,6 +76,8 @@ final class ImageDetailViewController: UIViewController {
     title = imageItem.description ?? imageItem.user.name
     navigationItem.largeTitleDisplayMode = .never
     view.backgroundColor = .systemBackground
+
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(handleBookmarkBarButtonItem(_:)))
 
     let scrollView = UIScrollView()
     view.addSubview(scrollView)
@@ -202,6 +205,10 @@ extension ImageDetailViewController {
     descriptionLabel.text = imageItem.description ?? "-"
     imageSizeLabel.text = "\(imageItem.width.formatted(.number))x\(imageItem.height.formatted(.number))"
     likeCountView.count = imageItem.likes
+  }
+
+  @objc private func handleBookmarkBarButtonItem(_ sender: UIBarButtonItem) {
+    favoriteItemRepository.addFavoriteItem(imageItem)
   }
 }
 
