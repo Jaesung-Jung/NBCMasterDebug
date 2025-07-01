@@ -208,7 +208,7 @@ extension ImageDetailViewController {
   }
 
   @objc private func handleBookmarkBarButtonItem(_ sender: UIBarButtonItem) {
-    favoriteItemRepository.addFavoriteItem(imageItem)
+    favoriteItemRepository.favoriteItem(imageItem)
   }
 }
 

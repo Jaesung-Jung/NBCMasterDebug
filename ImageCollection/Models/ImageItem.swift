@@ -29,6 +29,18 @@ struct ImageItem: Codable, Identifiable {
     likes = try container.decode(Int.self, forKey: "likes")
     user = try container.decode(User.self, forKey: "user")
   }
+
+  func encode(to encoder: any Encoder) throws {
+    var container = encoder.container(keyedBy: StringCodingKey.self)
+    try container.encode(id, forKey: "id")
+    try container.encode(width, forKey: "width")
+    try container.encode(height, forKey: "height")
+    try container.encodeIfPresent(description, forKey: "description")
+    try container.encodeIfPresent(createdAt, forKey: "created_at")
+    try container.encodeIfPresent(images, forKey: "urls")
+    try container.encodeIfPresent(likes, forKey: "likes")
+    try container.encodeIfPresent(user, forKey: "user")
+  }
 }
 
 // MARK: - ImageItem.Images

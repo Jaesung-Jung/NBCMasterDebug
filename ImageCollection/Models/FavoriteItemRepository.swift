@@ -6,28 +6,42 @@
 //
 
 import Foundation
-import Defaults
 import IdentifiedCollections
 
 final class FavoriteItemRepository {
-//  private let userDefaults = UserDefaults.standard
+  private let defaults = UserDefaults()
+
   static let shared = FavoriteItemRepository()
 
   private init() {
   }
 
-  private(set) var favoriteItems: IdentifiedArrayOf<ImageItem> = [.preview]
-//  {
-//    guard let items = userDefaults.array(forKey: "favorite_items") as? [ImageItem] else {
-//      return []
-//    }
-//    return IdentifiedArray(uniqueElements: items)
-//  }
+  var favoriteItems: IdentifiedArrayOf<ImageItem> {
+    let items = get([ImageItem].self, for: "favorite_items") ?? []
+    return IdentifiedArray(uniqueElements: items)
+  }
 
-  func addFavoriteItem(_ item: ImageItem) {
-    favoriteItems.append(item)
-//    var items = userDefaults.array(forKey: "favorite_items").flatMap { $0 as? [ImageItem] } ?? []
-//    items.append(item)
-//    userDefaults.set(items, forKey: "favorite_items")
+  func favoriteItem(_ item: ImageItem) {
+    var items = favoriteItems
+    items.append(item)
+    set(items, for: "favorite_items")
+  }
+}
+
+// MARK: - FavoriteItemRepository (Private)
+
+extension FavoriteItemRepository {
+  private func set<T: Encodable>(_ item: T, for key: String) {
+    let encoder = JSONEncoder()
+    if let data = try? encoder.encode(item) {
+      defaults.set(data, forKey: key)
+    }
+  }
+
+  private func get<T: Decodable>(_ type: T.Type, for key: String) -> T? {
+    guard let data = defaults.data(forKey: key) else {
+      return nil
+    }
+    return try? JSONDecoder().decode(T.self, from: data)
   }
 }

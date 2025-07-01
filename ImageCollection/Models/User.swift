@@ -37,6 +37,25 @@ struct User: Codable {
       portfolio: socialInfo["portfolio_url"].flatMap { URL(string: $0) }
     )
   }
+
+  func encode(to encoder: any Encoder) throws {
+    var container = encoder.container(keyedBy: StringCodingKey.self)
+    try container.encode(id, forKey: "id")
+    try container.encode(name, forKey: "name")
+    try container.encodeIfPresent(bio, forKey: "bio")
+    try container.encodeIfPresent(location, forKey: "location")
+    try container.encode(totalCollections, forKey: "total_collections")
+    try container.encode(totalLikes, forKey: "total_likes")
+    try container.encode(totalPhotos, forKey: "total_photos")
+
+    var profileImageContainer = container.nestedContainer(keyedBy: StringCodingKey.self, forKey: "profile_image")
+    try profileImageContainer.encodeIfPresent(profileImageURL, forKey: "large")
+
+    var socialContainer = container.nestedContainer(keyedBy: StringCodingKey.self, forKey: "social")
+    try socialContainer.encodeIfPresent(social.instagram, forKey: "instagram_username")
+    try socialContainer.encodeIfPresent(social.twitter, forKey: "twitter_username")
+    try socialContainer.encodeIfPresent(social.portfolio, forKey: "portfolio_url")
+  }
 }
 
 // MARK: - User.Social
