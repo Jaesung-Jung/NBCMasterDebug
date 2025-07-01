@@ -63,7 +63,6 @@ final class ImageDetailViewController: UIViewController {
     self.imageItem = imageItem
     super.init(nibName: nil, bundle: nil)
     self.imageWriter.delegate = self
-    self.imageDownloader.delegate = self
   }
 
   @available(*, unavailable)
@@ -167,27 +166,21 @@ extension ImageDetailViewController: ImageWriter.Delegate {
   }
 }
 
-// MARK: - ImageDetailViewController (ImageDownloader.Delegate)
-
-extension ImageDetailViewController: ImageDownloader.Delegate {
-  func imageDownloader(_ imageDownloder: ImageDownloader, didFiniishDownloadingImageAt url: URL, image: UIImage?) {
-    if let image {
-      imageWriter.writeImage(image)
-    }
-  }
-}
-
 // MARK: - ImageDetailViewController (Private)
 
 extension ImageDetailViewController {
   private func downloadImage() {
     downloadButton.isEnabled = false
     downloadButton.configuration?.showsActivityIndicator = true
-    imageDownloader.downloadImage(imageItem.images.raw)
+    imageDownloader.downloadImage(imageItem.images.raw) { [imageWriter] _, image in
+      if let image {
+        imageWriter.writeImage(image)
+      }
+    }
   }
 
   private func configure() {
-    let action = UIAction { _ in self.downloadImage() }
+    let action = UIAction { [unowned self] _ in downloadImage() }
     downloadButton.addAction(action, for: .primaryActionTriggered)
 
     if let profileImageURL = imageItem.user.profileImageURL {

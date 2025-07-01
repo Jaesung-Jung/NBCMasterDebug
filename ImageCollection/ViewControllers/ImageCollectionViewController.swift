@@ -20,8 +20,6 @@ final class ImageCollectionViewController: UIViewController {
 
   private lazy var dataSource = makeCollectionViewDataSource(collectionView)
 
-  private var didBecomeActiveNotificationObserver: NSObjectProtocol?
-
   init(category: ImageCategory) {
     self.repository = ImageRepository()
     self.category = category
@@ -43,15 +41,11 @@ final class ImageCollectionViewController: UIViewController {
       $0.directionalEdges.equalToSuperview()
     }
 
-    didBecomeActiveNotificationObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
-      self?.fetchImages()
-    }
-
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       title: nil,
       image: UIImage(systemName: "arrow.trianglehead.2.counterclockwise.rotate.90"),
-      primaryAction: UIAction { _ in
-        self.fetchImages()
+      primaryAction: UIAction { [unowned self] _ in
+        fetchImages()
       },
       menu: nil
     )
@@ -79,7 +73,7 @@ extension ImageCollectionViewController {
   }
 
   private func fetchImages(page: Int? = nil) {
-    repository.fetchImages(category: category, page: page) { result in
+    repository.fetchImages(category: category, page: page) { [weak self] result in
       let images: [ImageItem]
       switch result {
       case .success(let items):
@@ -87,7 +81,7 @@ extension ImageCollectionViewController {
       case .failure:
         images = []
       }
-      DispatchQueue.main.async { [weak self] in
+      DispatchQueue.main.async {
         self?.updateImages(images)
       }
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class ImageWriter {
-  var delegate: Delegate?
+  weak var delegate: Delegate?
 
   func writeImage(_ image: UIImage) {
     DispatchQueue.global().async {
