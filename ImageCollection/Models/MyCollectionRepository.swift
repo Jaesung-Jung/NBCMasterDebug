@@ -1,5 +1,5 @@
 //
-//  FavoriteItemRepository.swift
+//  MyCollectionRepository.swift
 //  ImageCollection
 //
 //  Created by 정재성 on 7/1/25.
@@ -8,29 +8,35 @@
 import Foundation
 import IdentifiedCollections
 
-final class FavoriteItemRepository {
+final class MyCollectionRepository {
   private let defaults = UserDefaults()
 
-  static let shared = FavoriteItemRepository()
+  static let shared = MyCollectionRepository()
 
   private init() {
   }
 
-  var favoriteItems: IdentifiedArrayOf<ImageItem> {
-    let items = get([ImageItem].self, for: "favorite_items") ?? []
+  var items: IdentifiedArrayOf<ImageItem> {
+    let items = get([ImageItem].self, for: "my_collection") ?? []
     return IdentifiedArray(uniqueElements: items)
   }
 
-  func favoriteItem(_ item: ImageItem) {
-    var items = favoriteItems
+  func appendItem(_ item: ImageItem) {
+    var items = self.items
     items.append(item)
-    set(items, for: "favorite_items")
+    set(self.items, for: "my_collection")
+  }
+
+  func removeItem(_ item: ImageItem) {
+    var items = self.items
+    items.remove(item)
+    set(self.items, for: "my_collection")
   }
 }
 
-// MARK: - FavoriteItemRepository (Private)
+// MARK: - MyCollectionRepository (Private)
 
-extension FavoriteItemRepository {
+extension MyCollectionRepository {
   private func set<T: Encodable>(_ item: T, for key: String) {
     let encoder = JSONEncoder()
     if let data = try? encoder.encode(item) {

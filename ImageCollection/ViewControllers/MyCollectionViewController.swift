@@ -1,5 +1,5 @@
 //
-//  FavoriteItemViewController.swift
+//  MyCollectionViewController.swift
 //  ImageCollection
 //
 //  Created by 정재성 on 7/1/25.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class FavoriteItemViewController: UIViewController {
+final class MyCollectionViewController: UIViewController {
   private lazy var collectionView = UICollectionView(
     frame: .zero,
     collectionViewLayout: makeCollectionVieWLayout()
@@ -17,7 +17,13 @@ final class FavoriteItemViewController: UIViewController {
 
   private lazy var dataSource = makeCollectionViewDataSource(collectionView)
 
-  private let favoriteRepository = FavoriteItemRepository.shared
+  private let emptyLabel = UILabel().then {
+    $0.text = "Empty"
+    $0.textColor = .systemGray
+    $0.font = .systemFont(ofSize: 24, weight: .bold)
+  }
+
+  private let myCollectionRepository = MyCollectionRepository.shared
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,20 +33,26 @@ final class FavoriteItemViewController: UIViewController {
     collectionView.snp.makeConstraints {
       $0.directionalEdges.equalToSuperview()
     }
+
+    view.addSubview(emptyLabel)
+    emptyLabel.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     var snapshot = NSDiffableDataSourceSnapshot<Int, ImageItem>()
     snapshot.appendSections([0])
-    snapshot.appendItems(Array(favoriteRepository.favoriteItems), toSection: 0)
+    snapshot.appendItems(Array(myCollectionRepository.items), toSection: 0)
     dataSource.apply(snapshot)
+    emptyLabel.isHidden = snapshot.numberOfItems > 0
   }
 }
 
-// MARK: - FavoriteItemViewController (Private)
+// MARK: - MyCollectionViewController (Private)
 
-extension FavoriteItemViewController {
+extension MyCollectionViewController {
   private func makeCollectionVieWLayout() -> UICollectionViewLayout {
     UICollectionViewCompositionalLayout { _, environment in
       let contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
@@ -79,8 +91,8 @@ extension FavoriteItemViewController {
   }
 }
 
-// MARK: - FavoriteItemViewController Preview
+// MARK: - MyCollectionViewController Preview
 
 #Preview {
-  NavigationController(rootViewController: FavoriteItemViewController())
+  NavigationController(rootViewController: MyCollectionViewController())
 }

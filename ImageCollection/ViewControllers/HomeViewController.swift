@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "홈"
+    title = "Photos"
     view.backgroundColor = .systemBackground
 
     view.addSubview(collectionView)

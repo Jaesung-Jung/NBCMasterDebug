@@ -12,7 +12,7 @@ import Then
 final class ImageDetailViewController: UIViewController {
   private let imageDownloader = ImageDownloader()
   private let imageWriter = ImageWriter()
-  private let favoriteItemRepository = FavoriteItemRepository.shared
+  private let myCollectionRepository = MyCollectionRepository.shared
   private let imageItem: ImageItem
 
   private let profileImageView = UIImageView().then {
@@ -60,6 +60,8 @@ final class ImageDetailViewController: UIViewController {
     $0.configuration?.buttonSize = .large
   }
 
+  private lazy var collectionBarButtonItem = UIBarButtonItem.init(image: nil, style: .plain, target: self, action: #selector(handleBookmarkBarButtonItem(_:)))
+
   init(imageItem: ImageItem) {
     self.imageItem = imageItem
     super.init(nibName: nil, bundle: nil)
@@ -76,8 +78,8 @@ final class ImageDetailViewController: UIViewController {
     title = imageItem.description ?? imageItem.user.name
     navigationItem.largeTitleDisplayMode = .never
     view.backgroundColor = .systemBackground
-
-    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(handleBookmarkBarButtonItem(_:)))
+    navigationItem.rightBarButtonItem = collectionBarButtonItem
+    collectionBarButtonItem.image = myCollectionRepository.items.contains { $0.id == imageItem.id } ? UIImage(systemName: "plus.circle.fill") : UIImage(systemName: "plus.circle")
 
     let scrollView = UIScrollView()
     view.addSubview(scrollView)
@@ -208,7 +210,19 @@ extension ImageDetailViewController {
   }
 
   @objc private func handleBookmarkBarButtonItem(_ sender: UIBarButtonItem) {
-    favoriteItemRepository.favoriteItem(imageItem)
+    let resultMessage: String
+    if myCollectionRepository.items.contains(where: { $0.id == imageItem.id }) {
+      myCollectionRepository.removeItem(imageItem)
+      collectionBarButtonItem.image = UIImage(systemName: "plus.circle")
+      resultMessage = "항목이 컬렉션에서 제거되었습니다."
+    } else {
+      myCollectionRepository.appendItem(imageItem)
+      collectionBarButtonItem.image = UIImage(systemName: "plus.circle.fill")
+      resultMessage = "항목이 컬렉션에 추가되었습니다."
+    }
+    let alertController = UIAlertController(title: "알림", message: resultMessage, preferredStyle: .alert)
+    alertController.addAction(UIAlertAction(title: "확인", style: .default))
+    present(alertController, animated: true)
   }
 }
 
