@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           $0.tabBarItem = UITabBarItem(title: "Photos", image: UIImage(systemName: "photo.on.rectangle.angled"), tag: 0)
         },
         NavigationController(rootViewController: MyCollectionViewController()).then {
-          $0.tabBarItem = UITabBarItem(title: "Collection", image: UIImage(systemName: "photo.stack"), tag: 0)
+          $0.tabBarItem = UITabBarItem(title: "My Collection", image: UIImage(systemName: "photo.stack"), tag: 0)
         }
       ]
     }

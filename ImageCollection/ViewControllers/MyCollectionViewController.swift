@@ -27,7 +27,7 @@ final class MyCollectionViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Favorite"
+    title = "My Collection"
 
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints {

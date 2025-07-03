@@ -16,6 +16,7 @@ final class ImageCollectionViewController: UIViewController {
   private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout()).then {
     $0.delegate = self
     $0.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+    $0.backgroundColor = .clear
   }
 
   private lazy var dataSource = makeCollectionViewDataSource(collectionView)
@@ -49,7 +50,7 @@ final class ImageCollectionViewController: UIViewController {
       },
       menu: nil
     )
-    fetchImages(page: 1)
+    fetchImages()
   }
 }
 
