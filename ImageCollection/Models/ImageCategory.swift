@@ -24,25 +24,25 @@ extension ImageCategory: CustomStringConvertible {
   var description: String {
     switch self {
     case .wallpaper:
-      "배경화면"
+      "Wallpapers"
     case .nature:
-      "자연"
+      "Nature"
     case .renders3d:
-      "3D 렌더링"
+      "3D Renders"
     case .textures:
-      "텍스처"
+      "Textures"
     case .travel:
-      "여행"
+      "Travel"
     case .film:
-      "필름"
+      "Film"
     case .people:
-      "사람"
+      "People"
     case .architecture:
-      "건축 및 인테리어"
+      "Architecture and Interior"
     case .street:
-      "거리"
+      "Street"
     case .experimental:
-      "실험적"
+      "Experimental"
     }
   }
 }

@@ -74,6 +74,9 @@ extension ImageCollectionViewController {
 
   private func fetchImages(page: Int? = nil) {
     repository.fetchImages(category: category, page: page) { [weak self] result in
+      guard let self else {
+        return
+      }
       let images: [ImageItem]
       switch result {
       case .success(let items):
@@ -82,7 +85,7 @@ extension ImageCollectionViewController {
         images = []
       }
       DispatchQueue.main.async {
-        self?.updateImages(images)
+        self.updateImages(images)
       }
     }
   }
