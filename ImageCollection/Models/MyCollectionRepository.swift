@@ -24,13 +24,13 @@ final class MyCollectionRepository {
   func appendItem(_ item: ImageItem) {
     var items = self.items
     items.append(item)
-    set(self.items, for: "my_collection")
+    set(items, for: "my_collection")
   }
 
   func removeItem(_ item: ImageItem) {
     var items = self.items
     items.remove(item)
-    set(self.items, for: "my_collection")
+    set(items, for: "my_collection")
   }
 }
 

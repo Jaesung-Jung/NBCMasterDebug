@@ -17,7 +17,7 @@ final class ImageRepository {
     do {
       let page = page ?? Int.random(in: 1...100)
       let count = 30
-      let request = try makeURLRequest(path: "/napi/topics/\(category.description.lowercased())/photos", page: page, count: count)
+      let request = try makeURLRequest(path: "/napi/topics/\(category.rawValue)/photos", page: page, count: count)
       session.dataTask(with: request) { data, _, error in
         guard let data else {
           completion(.failure(error ?? Error.unknown))
